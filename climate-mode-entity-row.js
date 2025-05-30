@@ -108,38 +108,46 @@
       `;
     }
 
-    setMode(mode) {
-      if (mode.hvac_mode != null && mode.hvac_mode != this.state) {
-        this._hass.callService("climate", "set_hvac_mode", {
-          entity_id: this._config.entity,
+    async setMode(mode) {
+      const entity_id = this._config.entity;
+    
+      const call = async (domain, service, data) => {
+        await this._hass.callService(domain, service, data);
+        // Optional: wait a bit to let the state update
+        await new Promise((resolve) => setTimeout(resolve, 300));
+      };
+    
+      if (mode.hvac_mode != null && mode.hvac_mode !== this.state.hvac_mode) {
+        await call("climate", "set_hvac_mode", {
+          entity_id,
           hvac_mode: mode.hvac_mode,
         });
       }
-
-      if (mode.preset_mode != null && mode.preset_mode != this.state.preset_mode) {
-        this._hass.callService("climate", "set_preset_mode", {
-          entity_id: this._config.entity,
+    
+      if (mode.preset_mode != null && mode.preset_mode !== this.state.preset_mode) {
+        await call("climate", "set_preset_mode", {
+          entity_id,
           preset_mode: mode.preset_mode,
         });
       }
-
-      if (mode.fan_mode != null && mode.fan_mode != this.state.fan_mode) {
-        this._hass.callService("climate", "set_fan_mode", {
-          entity_id: this._config.entity,
+    
+      if (mode.fan_mode != null && mode.fan_mode !== this.state.fan_mode) {
+        await call("climate", "set_fan_mode", {
+          entity_id,
           fan_mode: mode.fan_mode,
         });
       }
-
-      if (mode.swing_mode != null && mode.swing_mode != this.state.swing_mode) {
-        this._hass.callService("climate", "set_swing_mode", {
-          entity_id: this._config.entity,
+    
+      if (mode.swing_mode != null && mode.swing_mode !== this.state.swing_mode) {
+        await call("climate", "set_swing_mode", {
+          entity_id,
           swing_mode: mode.swing_mode,
         });
       }
-
-      if (mode.temperature != null && mode.temperature != this.state.temperature) {
-        this._hass.callService("climate", "set_temperature", {
-          entity_id: this._config.entity,
+    
+      if (mode.temperature != null && mode.temperature !== this.state.temperature) {
+        await call("climate", "set_temperature", {
+          entity_id,
           temperature: mode.temperature,
         });
       }
