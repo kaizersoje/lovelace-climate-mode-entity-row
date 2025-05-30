@@ -111,17 +111,14 @@
     }
 
     setMode(mode) {
-      if (mode.hvac_mode != null && mode.hvac_mode != this.state.hvac_mode) {
+      if (mode.hvac_mode != null && mode.hvac_mode != this.state) {
         this._hass.callService("climate", "set_hvac_mode", {
           entity_id: this._config.entity,
           hvac_mode: mode.hvac_mode,
         });
       }
 
-      if (
-        mode.preset_mode != null &&
-        mode.preset_mode != this.state.preset_mode
-      ) {
+      if (mode.preset_mode != null && mode.preset_mode != this.state.preset_mode) {
         this._hass.callService("climate", "set_preset_mode", {
           entity_id: this._config.entity,
           preset_mode: mode.preset_mode,
@@ -142,10 +139,7 @@
         });
       }
 
-      if (
-        mode.temperature != null &&
-        mode.temperature != this.state.temperature
-      ) {
+      if (mode.temperature != null && mode.temperature != this.state.temperature) {
         this._hass.callService("climate", "set_temperature", {
           entity_id: this._config.entity,
           temperature: mode.temperature,
