@@ -83,14 +83,11 @@
 
     renderMode(mode) {
       const isActive =
-        (mode.preset_mode == null ||
-          mode.preset_mode === this.state.preset_mode) &&
+        (mode.preset_mode == null || mode.preset_mode === this.state.preset_mode) &&
         (mode.hvac_mode == null || mode.hvac_mode === this.state.hvac_mode) &&
         (mode.fan_mode == null || mode.fan_mode === this.state.fan_mode) &&
-        (mode.swing_mode == null ||
-          mode.swing_mode === this.state.swing_mode) &&
-        (mode.temperature == null ||
-          mode.temperature === this.state.temperature);
+        (mode.swing_mode == null || mode.swing_mode === this.state.swing_mode) &&
+        (mode.temperature == null || mode.temperature === this.state.temperature);
 
       const onClick = () => {
         this.setMode(mode);
