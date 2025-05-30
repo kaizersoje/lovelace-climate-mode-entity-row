@@ -1,4 +1,5 @@
 ((LitElement) => {
+  console.info('Climate-Mode-Entity-Row 0.1');
   const html = LitElement.prototype.html;
   const css = LitElement.prototype.css;
 
